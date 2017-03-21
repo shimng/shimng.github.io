@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>钉钉 jsapi-node (1) | shimng</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="基于express的钉钉微应用探索
+建立服务首先已经默认已经安装了node环境和npm工具12//使用express工具创建dingtalk项目，使用ejs模板express dingtalk --ejs
+安装ding_jsapi_redis库1cnpm install ding_jsapi_redis --save
+在项目更目录创建config.js配置文件，文件内容包含如下1234567891">
+<meta property="og:type" content="article">
+<meta property="og:title" content="钉钉 jsapi-node (1)">
+<meta property="og:url" content="http://yoursite.com/2017/03/21/2017-03-21start-md/index.html">
+<meta property="og:site_name" content="shimng">
+<meta property="og:description" content="基于express的钉钉微应用探索
+建立服务首先已经默认已经安装了node环境和npm工具12//使用express工具创建dingtalk项目，使用ejs模板express dingtalk --ejs
+安装ding_jsapi_redis库1cnpm install ding_jsapi_redis --save
+在项目更目录创建config.js配置文件，文件内容包含如下1234567891">
+<meta property="og:updated_time" content="2017-03-21T08:41:12.291Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="钉钉 jsapi-node (1)">
+<meta name="twitter:description" content="基于express的钉钉微应用探索
+建立服务首先已经默认已经安装了node环境和npm工具12//使用express工具创建dingtalk项目，使用ejs模板express dingtalk --ejs
+安装ding_jsapi_redis库1cnpm install ding_jsapi_redis --save
+在项目更目录创建config.js配置文件，文件内容包含如下1234567891">
+  
+    <link rel="alternate" href="/atom.xml" title="shimng" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">shimng</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">一个伪全栈的前进之路</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2017-03-21start-md" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/21/2017-03-21start-md/" class="article-date">
+  <time datetime="2017-03-21T07:08:22.000Z" itemprop="datePublished">2017-03-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      钉钉 jsapi-node (1)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>基于express的钉钉微应用探索</p>
+<h3 id="建立服务"><a href="#建立服务" class="headerlink" title="建立服务"></a>建立服务</h3><p>首先已经默认已经安装了node环境和npm工具<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//使用express工具创建dingtalk项目，使用ejs模板</div><div class="line">express dingtalk --ejs</div></pre></td></tr></table></figure></p>
+<p>安装ding_jsapi_redis库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cnpm install ding_jsapi_redis --save</div></pre></td></tr></table></figure></p>
+<p>在项目更目录创建config.js配置文件，文件内容包含如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">//钉钉的相关配置信息</div><div class="line">exports.ding = &#123;</div><div class="line">    corpId:&quot;&quot;, //必填</div><div class="line">    secret:&quot;&quot;,//必填</div><div class="line">    prefix:&quot;&quot; //必填，该参数是用于区分redis服务器中的多个token和ticket准备的 ，例如ding_</div><div class="line">&#125;;</div><div class="line">//ridis服务器相关配置</div><div class="line">exports.redis = &#123;</div><div class="line">    port:6379,</div><div class="line">    host :&apos;192.168.1.218&apos;,</div><div class="line">    auth:&#123;&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">exports.domain = &quot;http://192.168.1.6:3000&quot;</div></pre></td></tr></table></figure></p>
+<p>创建controller</p>
+<blockquote>
+<p>在根目录下新建文件夹controllers,<br>在controllers文件夹中新建IndexController.js</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">//首先导入config配置文件</div><div class="line">var config = require(&quot;../config&quot;);</div><div class="line">//导入ding_jsapi_redis</div><div class="line">var ding = require(&quot;ding_jsapi_redis&quot;);</div><div class="line">//将config文件中的参数传入到ding库中</div><div class="line">ding.conf.ding = config.ding;</div><div class="line">ding.conf.redis = config.redis;</div><div class="line"></div><div class="line">module.exports = &#123;</div><div class="line">    index:function(req,res)&#123;</div><div class="line">        var url = config.domain+req.url;</div><div class="line">        // &#123;redis:config.redis,ding:config.ding&#125;</div><div class="line">        var params = &#123;</div><div class="line">            id:&quot;31441266&quot;</div><div class="line">        &#125;</div><div class="line">        var url = &quot;http://192.168.1.6:3000/&quot;;</div><div class="line">        ding.getSignature(url).then(function(data)&#123;</div><div class="line">            console.log(data);</div><div class="line">            res.render(&apos;index&apos;, &#123; title: &apos;Express&apos;,dd_config:data &#125;);</div><div class="line">        &#125;).catch(function (err) &#123;</div><div class="line">            console.log(err)</div><div class="line">        &#125;)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>编辑index.ejs<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">  &lt;head&gt;</div><div class="line">    &lt;title&gt;&lt;%= title %&gt;&lt;/title&gt;</div><div class="line">    &lt;link rel=&apos;stylesheet&apos; href=&apos;/stylesheets/style.css&apos; /&gt;</div><div class="line">    &lt;script type=&quot;text/javascript&quot; src=&quot;http://g.alicdn.com/ilw/ding/0.7.3/scripts/dingtalk.js&quot;&gt;&lt;/script&gt;</div><div class="line">    &lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">        var corpId = &apos;&lt;%=dd_config.corpId%&gt;&apos; ;</div><div class="line">        var timeStamp = &apos;&lt;%=dd_config.timeStamp%&gt;&apos; ;</div><div class="line">        var nonceStr = &apos;&lt;%=dd_config.nonceStr%&gt;&apos; ;</div><div class="line">        var signature = &apos;&lt;%=dd_config.signature%&gt;&apos; ;</div><div class="line">    &lt;/script&gt;</div><div class="line">    &lt;script type=&quot;text/javascript&quot; src=&quot;javascripts/index.js&quot;&gt;&lt;/script&gt;</div><div class="line">  &lt;/head&gt;</div><div class="line">  &lt;body&gt;</div><div class="line">    &lt;p&gt;Welcome to &lt;%= title %&gt;&lt;/p&gt;</div><div class="line">    &lt;button id=&quot;scan&quot; onclick=&quot;scan()&quot;&gt;scan&lt;/button&gt;</div><div class="line">  &lt;/body&gt;</div><div class="line">  &lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">  &lt;/script&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<p>在javascripts中创建index.js文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">dd.config(&#123;</div><div class="line">    agentId: &apos;82143702&apos;,</div><div class="line">    corpId:corpId,</div><div class="line">    timeStamp:  timeStamp,</div><div class="line">    nonceStr: nonceStr,</div><div class="line">    signature:  signature,</div><div class="line">    jsApiList: [</div><div class="line">        &apos;biz.util.scan&apos;,</div><div class="line">        ]</div><div class="line">&#125;);</div><div class="line">dd.ready(function () &#123;</div><div class="line">    alert(&quot;dd ready&quot;);</div><div class="line"></div><div class="line">    dd.error(function(err) &#123;</div><div class="line">        alert(&apos;dd error: &apos; + JSON.stringify(err));</div><div class="line">    &#125;);</div><div class="line">&#125;)</div><div class="line">dd.error(function(err) &#123;</div><div class="line">    alert(&apos;dd error: &apos; + JSON.stringify(err));</div><div class="line">&#125;);</div><div class="line">function scan() &#123;</div><div class="line">    alert(&quot;i am scan&quot;);</div><div class="line">    dd.biz.util.scan(&#123;</div><div class="line">        type: &quot;barCode&quot;,//type为qrCode或者barCode</div><div class="line">        onSuccess: function(data) &#123;</div><div class="line">            //onSuccess将在扫码成功之后回调</div><div class="line">            alert(data.text);</div><div class="line">            console.log(data);</div><div class="line">            /* data结构</div><div class="line">             &#123; &apos;text&apos;: String&#125;</div><div class="line">             */</div><div class="line">        &#125;,</div><div class="line">        onFail : function(err) &#123;</div><div class="line">            alert(err);</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>至此，一个简单的基于钉钉的express服务器就搭建好了。主要核心在于获取ticket,目前已经在ding_jsapi_reids中封装好，直接使用即可。如果有更好的方法请联系我。谢谢。</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/21/2017-03-21start-md/" data-id="cj0jbamdr0002rctpdxabj5hf" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dingtalk/">dingtalk</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jsapi/">jsapi</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/dingtalk/">dingtalk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jsapi/">jsapi</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/dingtalk/" style="font-size: 10px;">dingtalk</a> <a href="/tags/jsapi/" style="font-size: 10px;">jsapi</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/03/21/2017-03-21start-md/">钉钉 jsapi-node (1)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 shimng<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
